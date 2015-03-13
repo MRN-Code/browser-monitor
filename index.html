@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>COINS Browser Monitor</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></link>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="container theme-showcase" role="main">
+        <div class="page-header">
+            <h1>Coins Browser Monitor</h1>
+        </div>
+        <p class="bg-info">
+            Leave this page open in your browser at all times in order to monitor the COINS servers, and a control-server in the cloud. Servers are pinged every few minutes, and the results are displayed in the table below. Additionally, results are sent to a datastore where the COINS team can view them.
+        </p>
+        <form id="login">
+            <div class="form-group">
+                <label for="m2x_api_key">Key</label>
+                <input type="password" class="form-control" id="m2x_api_key" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="m2x_device_id">Device ID</label>
+                <input type="password" class="form-control" id="m2x_device_id" placeholder="">
+            </div>
+            <button type="button" data-hook="loginButton" class="btn btn-default">Submit</button>
+        </form>
+        <div class="row" id="dashboard" style="display:none">
+            <h3 id="m2x_device_name"></h3>
+            <!-- <button data-hook="dropButton" class="btn btn-danger">Delete Logs</button> -->
+            <button data-hook="exportButton" class="btn btn-info">Export Logs</button>
+            <div class="col-md-12">
+                <table data-hook="summaryTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>URL</th>
+                            <th>Ping Count</th>
+                            <th>Success Rate (%)</th>
+                            <th>Avg Success Response Time (ms)</th>
+                            <th>Avg Failure Response Time (ms)</th>
+                            <th>Avg Response Time (ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://github.com/downloads/jaubourg/jquery-jsonp/jquery.jsonp-2.4.0.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/rsvp/3.0/rsvp.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="js/notify-combined.min.js"></script>
+    <script src="js/m2x-2.0.2.min.js"></script>
+    <script src="js/localstoragedb.min.js"></script>
+    <script src="js/m2xController.js"></script>
+    <script src="js/dbUtils.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
