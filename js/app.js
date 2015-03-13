@@ -176,7 +176,7 @@ var pingForever = function() {
                 i = 0;
             } 
             if (!allStop) {
-                setTimeout(function(){ callPingAndLog(i); }, 6000);
+                setTimeout(function(){ callPingAndLog(i); }, 60000);
             }
             printSummaryTableRow(url);
         });
