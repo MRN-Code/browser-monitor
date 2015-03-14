@@ -11,7 +11,8 @@ var config = {
         { url: 'https://chronus.mrn.org/ajaxping.html', label: 'Chronus' },
         { url: 'https://portal.mrn.org/ajaxping.html', label: 'Portal' },
         { url: 'http://coinsping.azurewebsites.net?callback=_jqjsp', label: 'Azure' }
-    ]
+    ],
+    logDuration: 12 * 60 * 60 * 1000 // 12 hours
 };
 
 // Time methods
@@ -174,6 +175,7 @@ var pingForever = function() {
             i++;
             if (i >= urls.length) {
                 i = 0;
+                cleanPings();
             } 
             if (!allStop) {
                 setTimeout(function(){ callPingAndLog(i); }, 60000);
@@ -183,6 +185,24 @@ var pingForever = function() {
     };
     callPingAndLog(0);
 };
+
+var cleanPings = function() {
+    var now = nowUTC();
+    var deleteBefore = now - config.logDuration;
+    var rows = db.deleteRows('pings', function(row) {
+        return row.sentTime < deleteBefore;
+    });
+    updateLogStartTime();
+};
+
+var updateLogStartTime = function() {
+    var firstPing = db.query('pings', {
+        limit: 1,
+        sort: ['sentTime', 'ASC']
+    })[0];
+    var localMoment =  utcToLocal(firstPing.sentTime);
+    $('[data-hook=logStartTime]').html(localMoment.format('LLL'));
+}
 
 
 // Initialization methods
@@ -205,6 +225,7 @@ var initUI = function() {
 
 var initTable = function() {
     var urls = db.query('urls');
+    cleanPings();
     urls.forEach(function(url) {
         printSummaryTableRow(url);
     });
