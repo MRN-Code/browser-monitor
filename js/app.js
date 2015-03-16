@@ -196,12 +196,15 @@ var cleanPings = function() {
 };
 
 var updateLogStartTime = function() {
+    var localMoment;
     var firstPing = db.query('pings', {
         limit: 1,
         sort: ['sentTime', 'ASC']
     })[0];
-    var localMoment =  utcToLocal(firstPing.sentTime);
-    $('[data-hook=logStartTime]').html(localMoment.format('LLL'));
+    if (firstPing) {
+        localMoment =  utcToLocal(firstPing.sentTime);
+        $('[data-hook=logStartTime]').html(localMoment.format('LLL'));
+    }
 }
 
 
